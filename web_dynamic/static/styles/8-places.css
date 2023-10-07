@@ -99,3 +99,8 @@
 .user {
   margin-bottom: 1.5%;
 }
+
+li input[type="checkbox"] {
+    position: relative;
+    left: -10px;
+  }
