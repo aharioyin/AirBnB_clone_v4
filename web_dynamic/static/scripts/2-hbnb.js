@@ -1,21 +1,30 @@
-document.ready(function () {
+$(document).ready(function(){
 	const amenities = {};
-	$("li input[type=checkbox]").change(function () {
+	
+	$("input[type=checkbox]").on('change', function(){
+		let amenityId = $(this).data('id');
+		let amenityName = $(this).data('name');
+
 		if (this.checked) {
-			amenities[this.dataset.name] = this.dataset.id;
+			amenities[amenityId] = amenityName;
 		} else {
-			delete amenities[this.dataset.name];
+			delete amenities[amenityId];
 		}
-		$(".amenities h4").text(Object.keys(amenities).sort().join(", "));
+		$('.amenities h4').text(Object.values(amenities).join(', '));
 	});
-});
 
 	// Get status of API
-	$.getJSON("http://0.0.0.0:5001/api/v1/status/", (data) => {
-		if (data.status === "OK") {
-			$("div#api_status").addClass("available");
-		} else {
-			$("div#api_status").removeClass("available");
-		}
-	});
+        $.ajax({
+                url: "http://0.0.0.0:5001/api/v1/status/",
+                type: "GET",
+                success: function(data) {
+                        if (data.status === "OK") {
+                                $("div#api_status").addClass("available");
+                        } else {
+                                $("#divapi_status").removeClass("available");
+                        }
+
+                }
+        });
+
 });
