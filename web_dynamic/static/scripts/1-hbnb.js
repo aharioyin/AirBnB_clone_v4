@@ -1,11 +1,17 @@
-document.ready(function () {
+$(document).ready(function(){
 	const amenities = {};
-	$("li input[type=checkbox]").change(function () {
+	
+	$("input[type=checkbox]").on('change', function(){
+		let amenityId = $(this).data('id');
+		let amenityName = $(this).data('name');
+
 		if (this.checked) {
-			amenities[this.dataset.name] = this.dataset.id;
+			console.log(amenityName);
+			amenities[amenityId] = amenityName;
 		} else {
-			delete amenities[this.dataset.name];
+			delete amenities[amenityId];
 		}
-		$(".amenities h4").text(Object.keys(amenities).sort().join(", "));
+		$('.amenities h4').text(Object.values(amenities).join(', '));
 	});
+	console.log(amenities);
 });
